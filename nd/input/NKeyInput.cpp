@@ -1,5 +1,6 @@
 
 #include "NKeyInput.h"
+#include "../util/array.h"
 
 void NKeyInput::pump_keydown(int k) {
     this->ensure_position(k);
@@ -25,3 +26,9 @@ bool NKeyInput::pressed(int key) {
     return keyState.pressed();
 }
 
+bool NKeyInput::anyPressed(int keys[]) {
+    for (int i = 0; i < arr_size<int>(keys); i++) {
+        if (this->pressed(keys[i])) return true;
+    }
+    return false;
+}
