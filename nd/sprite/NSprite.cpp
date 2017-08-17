@@ -2,22 +2,26 @@
 #include "NSprite.h"
 
 void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
-                          int frameHeight, bool animated) {
+                          int frameHeight) {
     // load BMP asset and save to _graphic
     // use asset loader to get full path
     std::string asset_full_path = NAssetLoader::get_full_path(asset);
     SDL_Surface *assetBmp = NAssetLoader::load_bmp_ex(asset_full_path);
-    if (animated) {
-        // discover frames
-        // TODO
+
+    if (frameWidth == 0) {
+        frameWidth = this->width = assetBmp->w;
     } else {
-        if (frameWidth == 0) {
-            this->width = assetBmp->w;
-        }
-        if (frameHeight == 0) {
-            this->height = assetBmp->h;
-        }
+        this->width = frameWidth;
     }
+    if (frameHeight == 0) {
+        frameHeight = this->height = assetBmp->h;
+    } else {
+        this->height = frameHeight;
+    }
+
+    this->_vertFrames = assetBmp->h / frameHeight;
+    this->_horizFrames = assetBmp->w / frameWidth;
+
     this->_graphic = assetBmp;
 }
 
