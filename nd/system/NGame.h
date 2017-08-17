@@ -28,6 +28,7 @@ class NGame {
     void game_loop();
     void update(int dt);
     void render();
+    void exit();
 
   public:
     NKeyInput *keys = nullptr;
@@ -39,7 +40,7 @@ class NGame {
     void init(int width, int height, int targetFramerate);
     void switch_state(NState *state);
     void start();
-    void exit();
+    void quit();
     int get_frame_count();
 
 #ifdef desktop

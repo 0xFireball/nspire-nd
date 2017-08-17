@@ -39,11 +39,14 @@ void NGame::init(int width, int height, int targetFramerate) {
 }
 
 void NGame::switch_state(NState *state) {
-    if (this->_currentState != nullptr)
+    if (this->_currentState != nullptr) {
+        this->_currentState->destroy();
         delete this->_currentState;
-    if (!state->created)
-        state->create();
-    state->game = this;
+    }
+    if (state != nullptr) {
+        if (!state->created) { state->create(); }
+        state->game = this;
+    }
     this->_currentState = state;
 }
 
@@ -66,6 +69,10 @@ void NGame::exit() {
     SDL_Quit();
 }
 
+void NGame::quit() {
+    this->_quit = true;
+}
+
 void NGame::start() {
     this->_clock->reset();
     this->game_loop();
@@ -77,7 +84,7 @@ void NGame::game_loop() {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
             case SDL_QUIT:
-                this->_quit = true;
+                this->quit();
                 break;
             case SDL_KEYDOWN:
                 this->keys->pump_keydown(event.key.keysym.sym);
@@ -113,6 +120,8 @@ void NGame::game_loop() {
             }
         }
     }
+    // exit
+    this->exit();
 }
 
 void NGame::update(int dt) {
