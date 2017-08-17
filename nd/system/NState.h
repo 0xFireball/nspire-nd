@@ -18,7 +18,7 @@ public:
     NState() : NGroup(0) {}
 
     virtual void create();
-    virtual void update(float); // float dt
+    virtual void update(float dt);
     virtual void render(SDL_Surface *surface);
 
     void setClearColor(NColor col);

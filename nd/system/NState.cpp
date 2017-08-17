@@ -5,8 +5,9 @@ void NState::create() {
     this->created = true;
 }
 
-void NState::update(float) {
+void NState::update(float dt) {
     // Nothing to do, subclass should override
+    NGroup<NBasic>::update(dt);
 }
 
 void NState::render(SDL_Surface *surface) {

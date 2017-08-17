@@ -30,12 +30,22 @@ public:
         return obj;
     }
 
+    virtual void update(float dt) {
+        for (T*& member: this->members) {
+            if (member != nullptr && member->_exists) {
+                member->update(dt);
+            }
+        }
+        NBasic::update(dt);
+    }
+
     virtual void render(SDL_Surface *surface) {
         for (T*& member: this->members) {
             if (member != nullptr && member->_exists) {
                 member->render(surface);
             }
         }
+        NBasic::render(surface);
     }
 
     virtual void destroy() {
