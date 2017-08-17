@@ -6,11 +6,14 @@
 #include "../util/NColor.h"
 #include "../group/NGroup.h"
 
+class NGame;
+
 class NState : public NGroup<NBasic> {
 private:
     NColor _clearColor;
 public:
     bool created = false;
+    NGame *game;
 
     NState() : NGroup(0) {}
 

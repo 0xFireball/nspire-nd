@@ -41,6 +41,7 @@ void NGame::switch_state(NState *state) {
         delete this->_currentState;
     if (!state->created)
         state->create();
+    state->game = this;
     this->_currentState = state;
 }
 
