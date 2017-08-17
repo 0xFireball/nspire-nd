@@ -91,17 +91,25 @@ void NGame::game_loop() {
         // loop frame
         this->_clock->update();
         int dt = this->_clock->getElapsed();
+        int renderStart = this->_clock->getRawTicks();
 
         this->update(dt);
         this->render();
 
+        int renderTime = this->_clock->getRawTicks() - renderStart;
+
         this->_frameCount++;
 
-        // limit framerate
+        // framerate cap
         if (this->_limitFramerate) {
-            int aheadTime = this->_targetFramerateTicks - dt;
+            // limit framerate based on render time
+            int aheadTime = this->_targetFramerateTicks - renderTime;
             if (aheadTime > 0) {
                 SDL_Delay(aheadTime); // sleep
+            } else {
+                #if GRAPHICS_DEBUG
+                std::cout << "dropped frame " << this->_frameCount + 1 << std::endl;
+                #endif
             }
         }
     }

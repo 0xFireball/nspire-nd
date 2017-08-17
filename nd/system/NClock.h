@@ -15,13 +15,17 @@ public:
         return _dt;
     }
 
+    int getRawTicks() {
+        return SDL_GetTicks();
+    }
+
     void update() {
-        int now = SDL_GetTicks();
+        int now = this->getRawTicks();
         this->_dt = now - this->_last;
         this->_last = now;
     }
 
     void reset() {
-        this->_last = SDL_GetTicks();
+        this->_last = this->getRawTicks();
     }
 };
