@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../deps.h"
+#include "../util/NColor.h"
 
 /*
     NG2 provides a subset of g2 (Graphics2) API
@@ -13,6 +14,8 @@ class NG2 {
 
   public:
     void begin(SDL_Surface *target);
+    void clear(NColor col);
     void blit_sub_image(SDL_Surface *img, int x, int y, int sx, int sy, int sw,
                         int sh);
+    void end();
 };

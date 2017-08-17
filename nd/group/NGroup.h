@@ -39,13 +39,13 @@ public:
         NBasic::update(dt);
     }
 
-    virtual void render(SDL_Surface *surface) {
+    virtual void render(NG2 *g2) {
         for (T*& member: this->members) {
             if (member != nullptr && member->_exists) {
-                member->render(surface);
+                member->render(g2);
             }
         }
-        NBasic::render(surface);
+        NBasic::render(g2);
     }
 
     virtual void destroy() {

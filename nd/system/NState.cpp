@@ -10,11 +10,10 @@ void NState::update(float dt) {
     NGroup<NBasic>::update(dt);
 }
 
-void NState::render(SDL_Surface *surface) {
+void NState::render(NG2 *g2) {
     // clear
-    SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format,
-        this->_clearColor.r, this->_clearColor.g, this->_clearColor.b));
-    NGroup<NBasic>::render(surface);
+    g2->clear(this->_clearColor);
+    NGroup<NBasic>::render(g2);
 }
 
 void NState::setClearColor(NColor col) {

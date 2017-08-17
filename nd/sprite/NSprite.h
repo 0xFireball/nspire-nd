@@ -3,6 +3,7 @@
 
 #include "../assets/NAssets.h"
 #include "../entity/NEntity.h"
+#include "../graphics/NG2.h"
 
 class NSprite : public NEntity {
   protected:
@@ -16,7 +17,7 @@ class NSprite : public NEntity {
                      int frameHeight = 0, bool animated = false);
 
     //
-    virtual void render(SDL_Surface *screen);
+    virtual void render(NG2 *g2);
 
     virtual void destroy();
 };

@@ -21,18 +21,16 @@ void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
     this->_graphic = assetBmp;
 }
 
-void NSprite::render(SDL_Surface *screen) {
+void NSprite::render(NG2 *g2) {
     // render the sprite to the screen
     // MAJOR TODO for improvements
     if (this->_graphic != nullptr) {
         // For now, we blit the entire sprite
         // in the future we can blit partial images for animation.
-        SDL_Rect dstRect;
-        dstRect.x = this->x;
-        dstRect.y = this->y;
-        SDL_BlitSurface(this->_graphic, nullptr, screen, &dstRect);
+        // TODO: use framewidth and frameheight
+        g2->blit_sub_image(this->_graphic, this->x, this->y, 0, 0, this->width, this->height);
     }
-    NEntity::render(screen);
+    NEntity::render(g2);
 }
 
 void NSprite::destroy() {

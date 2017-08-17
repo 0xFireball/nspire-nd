@@ -5,6 +5,7 @@
 
 #include "../util/NColor.h"
 #include "../group/NGroup.h"
+#include "../graphics/NG2.h"
 
 class NGame;
 
@@ -19,7 +20,7 @@ public:
 
     virtual void create();
     virtual void update(float dt);
-    virtual void render(SDL_Surface *surface);
+    virtual void render(NG2 *g2);
 
     void setClearColor(NColor col);
 

@@ -3,6 +3,11 @@
 
 void NG2::begin(SDL_Surface *target) { this->_target = target; }
 
+void NG2::clear(NColor col) {
+    SDL_FillRect(this->_target, nullptr,
+                 SDL_MapRGB(this->_target->format, col.r, col.g, col.b));
+}
+
 void NG2::blit_sub_image(SDL_Surface *img, int x, int y, int sx, int sy, int sw,
                          int sh) {
     SDL_Rect subtex;
@@ -17,3 +22,5 @@ void NG2::blit_sub_image(SDL_Surface *img, int x, int y, int sx, int sy, int sw,
 
     SDL_BlitSurface(img, &subtex, this->_target, &dstRect);
 }
+
+void NG2::end() {}
