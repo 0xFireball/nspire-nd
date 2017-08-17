@@ -22,3 +22,13 @@ void NSprite::render(SDL_Surface* screen) {
     }
     NEntity::render(screen);
 }
+
+void NSprite::destroy() {
+    // free _graphic
+    if (this->_graphic != nullptr) {
+        SDL_FreeSurface(this->_graphic);
+        this->_graphic = nullptr;
+    }
+
+    NEntity::destroy();
+}

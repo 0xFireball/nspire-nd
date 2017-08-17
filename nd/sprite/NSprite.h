@@ -16,4 +16,6 @@ class NSprite : public NEntity {
 
     //
     virtual void render(SDL_Surface* screen);
+
+    virtual void destroy();
 };
