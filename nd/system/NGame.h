@@ -2,11 +2,16 @@
 #pragma once
 
 #include "../deps.h"
+
+#include "../input/NKeyInput.h"
 #include "NClock.h"
 #include "NState.h"
 
+class NKeyInput;
+
 class NGame {
   private:
+    int _frameCount;
     SDL_Surface *_screen;
     int _targetFramerate;
     int _targetFramerateTicks;
@@ -24,7 +29,7 @@ class NGame {
     void render();
 
   public:
-    static int _frameCount;
+    NKeyInput *keys = nullptr;
 
     NGame();
     void platform_init(int argc, char **argv);
@@ -32,6 +37,7 @@ class NGame {
     void switch_state(NState *state);
     void start();
     void exit();
+    int get_frame_count();
 
 #ifdef desktop
 // desktop specific

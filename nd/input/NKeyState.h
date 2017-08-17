@@ -23,7 +23,7 @@ class NKeyState {
         return _down;
     }
 
-    bool justPressed() {
-        return pressed() && NGame::_frameCount - _pressFrame <= JUST_PRESSED_FRAMES;
+    bool justPressed(int frame) {
+        return pressed() && (frame - _pressFrame) <= JUST_PRESSED_FRAMES;
     }
 };

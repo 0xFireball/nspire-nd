@@ -2,8 +2,6 @@
 #include "NGame.h"
 #include "../assets/NAssets.h"
 
-int NGame::_frameCount = 0;
-
 NGame::NGame() {}
 
 void NGame::platform_init(int argc, char **argv) {
@@ -33,6 +31,9 @@ void NGame::init(int width, int height, int targetFramerate) {
 
     // prepare rendering loop
     this->_clock = new NClock();
+
+    // initialize keyboard system
+    this->keys = new NKeyInput();
 }
 
 void NGame::switch_state(NState *state) {
@@ -43,7 +44,7 @@ void NGame::switch_state(NState *state) {
     this->_currentState = state;
 }
 
-void NGame::init_vars() { NGame::_frameCount = 0; }
+void NGame::init_vars() { this->_frameCount = 0; }
 
 void NGame::destroy() {
     // delete the current state
@@ -89,7 +90,7 @@ void NGame::game_loop() {
         this->update(dt);
         this->render();
 
-        NGame::_frameCount++;
+        this->_frameCount++;
 
         // limit framerate
         int aheadTime = this->_targetFramerateTicks - dt;
@@ -109,6 +110,10 @@ void NGame::render() {
     this->_currentState->render(this->_screen);
     // flip the buffers
     SDL_Flip(this->_screen);
+}
+
+int NGame::get_frame_count() {
+    return this->_frameCount;
 }
 
 #ifdef desktop
