@@ -78,8 +78,10 @@ void NGame::game_loop() {
                 this->_quit = true;
                 break;
             case SDL_KEYDOWN:
+                this->keys->pump_keydown(event.key.keysym.sym);
                 break;
             case SDL_KEYUP:
+            this->keys->pump_keyup(event.key.keysym.sym);
                 break;
             }
         }

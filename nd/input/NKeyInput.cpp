@@ -20,8 +20,8 @@ void NKeyInput::fill_position(int k) {
 }
 
 bool NKeyInput::pressed(int key) {
-    this->ensure_position(k);
-    NKeyState keyState = this->state[key];
+    this->ensure_position(key);
+    NKeyState keyState = this->_state[key];
     return keyState.pressed();
 }
 
