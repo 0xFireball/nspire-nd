@@ -2,8 +2,8 @@
 #pragma once
 
 #include "../deps.h"
-#include "NState.h"
 #include "NClock.h"
+#include "NState.h"
 
 class NGame {
   private:
@@ -11,10 +11,9 @@ class NGame {
     int _targetFramerate;
     int _targetFramerateTicks;
     std::string _cwd;
-    int _frameCount;
-    NClock* _clock;
+    NClock *_clock;
     bool _quit = false;
-    NState* _currentState;
+    NState *_currentState;
 
     void init_vars();
 
@@ -25,10 +24,12 @@ class NGame {
     void render();
 
   public:
+    static int _frameCount;
+
     NGame();
-    void platform_init(int argc, char** argv);
+    void platform_init(int argc, char **argv);
     void init(int width, int height, int targetFramerate);
-    void switch_state(NState* state);
+    void switch_state(NState *state);
     void start();
     void exit();
 

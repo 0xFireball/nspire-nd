@@ -2,11 +2,13 @@
 #include "NGame.h"
 #include "../assets/NAssets.h"
 
+int NGame::_frameCount = 0;
+
 NGame::NGame() {}
 
-void NGame::platform_init(int argc, char** argv) {
+void NGame::platform_init(int argc, char **argv) {
     if (argc > 0) {
-        char* program = argv[0];
+        char *program = argv[0];
         std::string cwd = program;
         cwd = cwd.substr(0, cwd.find_last_of('/') + 1);
         this->_cwd = cwd;
@@ -17,8 +19,10 @@ void NGame::platform_init(int argc, char** argv) {
 
 void NGame::init(int width, int height, int targetFramerate) {
     SDL_Init(SDL_INIT_VIDEO);
-    if (width == 0) width = DISPLAY_WIDTH;
-    if (height == 0) height = DISPLAY_HEIGHT;
+    if (width == 0)
+        width = DISPLAY_WIDTH;
+    if (height == 0)
+        height = DISPLAY_HEIGHT;
     this->_screen = SDL_SetVideoMode(width, height, DISPLAY_BPP, SDL_SWSURFACE);
 
     this->_targetFramerate = targetFramerate;
@@ -31,15 +35,15 @@ void NGame::init(int width, int height, int targetFramerate) {
     this->_clock = new NClock();
 }
 
-void NGame::switch_state(NState* state) {
-    if (this->_currentState != nullptr) delete this->_currentState;
-    if (!state->created) state->create();
+void NGame::switch_state(NState *state) {
+    if (this->_currentState != nullptr)
+        delete this->_currentState;
+    if (!state->created)
+        state->create();
     this->_currentState = state;
 }
 
-void NGame::init_vars() {
-    this->_frameCount = 0;
-}
+void NGame::init_vars() { NGame::_frameCount = 0; }
 
 void NGame::destroy() {
     // delete the current state
@@ -49,7 +53,8 @@ void NGame::destroy() {
     SDL_FreeSurface(this->_screen);
 
     // free other resources
-    if (this->_clock != nullptr) delete this->_clock;
+    if (this->_clock != nullptr)
+        delete this->_clock;
 }
 
 void NGame::exit() {
@@ -67,8 +72,13 @@ void NGame::game_loop() {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
-                case SDL_QUIT:
-                    this->_quit = true;
+            case SDL_QUIT:
+                this->_quit = true;
+                break;
+            case SDL_KEYDOWN:
+                break;
+            case SDL_KEYUP:
+                break;
             }
         }
 
@@ -79,7 +89,7 @@ void NGame::game_loop() {
         this->update(dt);
         this->render();
 
-        this->_frameCount++;
+        NGame::_frameCount++;
 
         // limit framerate
         int aheadTime = this->_targetFramerateTicks - dt;
