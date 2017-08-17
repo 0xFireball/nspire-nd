@@ -10,7 +10,7 @@ public:
     virtual void update(float) {} // float dt
     virtual void render(SDL_Surface*) {}
     
-    void destroy() {
+    virtual void destroy() {
         this->_exists = false;
     }
 
