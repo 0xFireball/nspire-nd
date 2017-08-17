@@ -98,9 +98,11 @@ void NGame::game_loop() {
         this->_frameCount++;
 
         // limit framerate
-        int aheadTime = this->_targetFramerateTicks - dt;
-        if (aheadTime > 0) {
-            SDL_Delay(aheadTime); // sleep
+        if (this->_limitFramerate) {
+            int aheadTime = this->_targetFramerateTicks - dt;
+            if (aheadTime > 0) {
+                SDL_Delay(aheadTime); // sleep
+            }
         }
     }
 }

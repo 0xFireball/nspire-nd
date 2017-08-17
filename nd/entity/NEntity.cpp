@@ -11,4 +11,5 @@ Vec2 NEntity::getPosition() {
 
 void NEntity::setPosition(Vec2 pos) {
     this->x = pos.getX();
+    this->y = pos.getY();
 }

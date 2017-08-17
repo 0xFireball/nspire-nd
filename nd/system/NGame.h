@@ -19,6 +19,7 @@ class NGame {
     NClock *_clock;
     bool _quit = false;
     NState *_currentState;
+    bool _limitFramerate = true;
 
     void init_vars();
 
