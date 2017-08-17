@@ -22,6 +22,8 @@ void NGame::init(int width, int height, int targetFramerate) {
     if (height == 0)
         height = DISPLAY_HEIGHT;
     this->_screen = SDL_SetVideoMode(width, height, DISPLAY_BPP, SDL_SWSURFACE);
+    this->width = width;
+    this->height = height;
 
     this->_targetFramerate = targetFramerate;
     this->_targetFramerateTicks = 1000 / targetFramerate;
@@ -81,7 +83,7 @@ void NGame::game_loop() {
                 this->keys->pump_keydown(event.key.keysym.sym);
                 break;
             case SDL_KEYUP:
-            this->keys->pump_keyup(event.key.keysym.sym);
+                this->keys->pump_keyup(event.key.keysym.sym);
                 break;
             }
         }
@@ -115,9 +117,7 @@ void NGame::render() {
     SDL_Flip(this->_screen);
 }
 
-int NGame::get_frame_count() {
-    return this->_frameCount;
-}
+int NGame::get_frame_count() { return this->_frameCount; }
 
 #ifdef desktop
 // Desktop-specific

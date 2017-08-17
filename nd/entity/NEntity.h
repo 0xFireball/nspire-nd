@@ -2,6 +2,7 @@
 #pragma once
 
 #include "NBasic.h"
+#include "../util/Vec2.h"
 
 class NEntity : public NBasic {
   protected:
@@ -15,4 +16,6 @@ class NEntity : public NBasic {
 
     NEntity(int x = 0, int y = 0, int width = 0, int height = 0)
         : NBasic(), x(x), y(y), width(width), height(height) {}
+    Vec2 getPosition();
+    void setPosition(Vec2 pos);
 };

@@ -30,6 +30,8 @@ class NGame {
 
   public:
     NKeyInput *keys = nullptr;
+    int width;
+    int height;
 
     NGame();
     void platform_init(int argc, char **argv);
