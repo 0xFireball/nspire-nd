@@ -37,6 +37,15 @@ public:
             }
         }
     }
+
+    virtual void destroy() {
+        // call destroy on all group members
+        for (T*& member: this->members) {
+            if (member != nullptr) { member->destroy(); }
+        }
+
+        NBasic::destroy();
+    }
     
     virtual ~NGroup() {}
 };
