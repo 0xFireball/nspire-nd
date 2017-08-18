@@ -18,4 +18,5 @@ class NEntity : public NBasic {
         : NBasic(), x(x), y(y), width(width), height(height) {}
     Vec2 getPosition();
     void setPosition(Vec2 pos);
+    Vec2 getCenter();
 };

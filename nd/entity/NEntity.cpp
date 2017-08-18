@@ -13,3 +13,7 @@ void NEntity::setPosition(Vec2 pos) {
     this->x = pos.getX();
     this->y = pos.getY();
 }
+
+Vec2 NEntity::getCenter() {
+    return this->getPosition() + (Vec2(this->width, this->height) / 2);
+}
