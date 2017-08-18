@@ -15,3 +15,5 @@
 #include "sprite/NSprite.h"
 
 #include "assets/NAssets.h"
+
+#include "physics/KinematicSprite.h"

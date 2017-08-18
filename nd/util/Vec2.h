@@ -18,6 +18,8 @@ class Vec2 {
     void setX(float x) { _x = x; }
     void setY(float y) { _y = y; }
 
+    void set(float x, float y) { _x = x; _y = y; }
+
     float length() { return std::sqrt(_x * _x + _y * _y); }
 
     Vec2 operator+(const Vec2 &v2) const {
