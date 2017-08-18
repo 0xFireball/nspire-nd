@@ -52,7 +52,11 @@ void NSprite::render(NG2 *g2) {
             frameX, frameY,
             this->_frameWidth, this->_frameHeight);
         spriteRenderer.end();
-        g2->blit_image(this->_renderBuf, this->x - this->offset.getX(), this->y - this->offset.getY());
+        SDL_Surface *rot = rotozoomSurface(this->_renderBuf, this->angle, 1., 0);
+        int xRotOff = rot->w / 2 - this->_renderBuf->w / 2;
+        int yRotOff = rot->h / 2 - this->_renderBuf->h / 2;
+        g2->blit_image(rot, this->x - this->offset.getX() - xRotOff, this->y - this->offset.getY() - yRotOff);
+        SDL_FreeSurface(rot);
     }
     NEntity::render(g2);
 }

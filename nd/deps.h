@@ -17,3 +17,5 @@
 // SDL
 #include <SDL/SDL.h>
 #include <SDL/SDL_config.h>
+#include <SDL/SDL_gfxPrimitives.h>
+#include <SDL/SDL_rotozoom.h>
