@@ -25,6 +25,10 @@ void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
     this->_graphic = assetBmp;
 }
 
+void NSprite::update(float dt) {
+    this->animation.update(dt);
+}
+
 void NSprite::render(NG2 *g2) {
     // render the sprite to the screen
     // MAJOR TODO for improvements
