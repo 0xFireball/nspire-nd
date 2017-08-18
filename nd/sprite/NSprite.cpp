@@ -38,7 +38,7 @@ void NSprite::render(NG2 *g2) {
     if (this->_graphic != nullptr) {
         // blit the frame
         int frameX = (animation.frameIndex % this->_horizFrames) * this->_frameWidth;
-        int frameY = animation.frameIndex / this->_horizFrames;
+        int frameY = (animation.frameIndex / this->_horizFrames) * this->_frameHeight;
         g2->blit_sub_image(this->_graphic,
             this->x - this->offset.getX(), this->y - this->offset.getY(),
             frameX, frameY,
