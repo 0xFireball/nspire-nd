@@ -5,7 +5,7 @@
 
 #include "../sprite/NSprite.h"
 
-class KinematicSprite : NSprite {
+class KinematicSprite : public NSprite {
 private:
     float compute_velocity(float vel, float acc, float drg, float max, float dt);
 
@@ -13,6 +13,8 @@ protected:
     void update_motion(float dt);
 
 public:
+    KinematicSprite(int x, int y) : NSprite(x, y) {}
+
     Vec2 velocity;
     Vec2 maxVelocity;
     Vec2 acceleration;

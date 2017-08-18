@@ -17,3 +17,5 @@
 #include "assets/NAssets.h"
 
 #include "physics/KinematicSprite.h"
+
+#include "effects/particles/NParticleEmitter.h"

@@ -5,6 +5,8 @@
 #include "../entity/NEntity.h"
 #include "../graphics/NG2.h"
 #include "../util/Vec2.h"
+#include "../util/NColor.h"
+
 #include "NAnimationController.h"
 
 class NSprite : public NEntity {
@@ -24,6 +26,7 @@ class NSprite : public NEntity {
     // sprite
     void loadGraphic(NAssetPath asset, int frameWidth = 0,
                      int frameHeight = 0);
+    void makeGraphic(int width, int height, NColor col);
 
     virtual void update(float dt);
     virtual void render(NG2 *g2);

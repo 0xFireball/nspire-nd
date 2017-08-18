@@ -30,6 +30,14 @@ void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
     this->_renderBuf = NG2::create_surface(frameWidth, frameHeight);
 }
 
+void NSprite::makeGraphic(int width, int height, NColor col) {
+    NG2 renderer;
+    this->_graphic = NG2::create_surface(width, height);
+    renderer.begin(this->_graphic);
+    renderer.clear(col);
+    renderer.end();
+}
+
 void NSprite::update(float dt) {
     this->animation.update(dt);
 }
