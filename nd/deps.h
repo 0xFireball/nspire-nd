@@ -1,6 +1,7 @@
 #pragma once
 
 #include "platform.h"
+#include "util/math.h"
 
 // Other
 #include <string>
