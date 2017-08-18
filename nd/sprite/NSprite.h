@@ -10,12 +10,14 @@
 class NSprite : public NEntity {
   protected:
     SDL_Surface *_graphic = nullptr;
+    SDL_Surface *_renderBuf = nullptr;
     int _vertFrames = 0, _horizFrames = 0;
     int _frameWidth = 0, _frameHeight = 0;
 
   public:
     NAnimationController animation;
     Vec2 offset;
+    float angle = 0;
 
     NSprite(int x = 0, int y = 0) : NEntity(x, y) {}
 

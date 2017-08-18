@@ -26,6 +26,8 @@ void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
     this->_frameHeight = this->height;
 
     this->_graphic = assetBmp;
+    // create renderBuf
+    this->_renderBuf = NG2::create_surface(frameWidth, frameHeight);
 }
 
 void NSprite::update(float dt) {
@@ -39,10 +41,18 @@ void NSprite::render(NG2 *g2) {
         // blit the frame
         int frameX = (animation.frameIndex % this->_horizFrames) * this->_frameWidth;
         int frameY = (animation.frameIndex / this->_horizFrames) * this->_frameHeight;
-        g2->blit_sub_image(this->_graphic,
-            this->x - this->offset.getX(), this->y - this->offset.getY(),
+        NG2 spriteRenderer;
+        spriteRenderer.begin(this->_renderBuf);
+        // spriteRenderer.blit_sub_image(this->_graphic,
+        //     this->x - this->offset.getX(), this->y - this->offset.getY(),
+        //     frameX, frameY,
+        //     this->_frameWidth, this->_frameHeight);
+        spriteRenderer.blit_sub_image(this->_graphic,
+            0, 0,
             frameX, frameY,
             this->_frameWidth, this->_frameHeight);
+        spriteRenderer.end();
+        g2->blit_image(this->_renderBuf, this->x - this->offset.getX(), this->y - this->offset.getY());
     }
     NEntity::render(g2);
 }
@@ -52,6 +62,12 @@ void NSprite::destroy() {
     if (this->_graphic != nullptr) {
         SDL_FreeSurface(this->_graphic);
         this->_graphic = nullptr;
+    }
+
+    // free _renderBuf
+    if (this->_renderBuf != nullptr) {
+        SDL_FreeSurface(this->_renderBuf);
+        this->_renderBuf = nullptr;
     }
 
     NEntity::destroy();

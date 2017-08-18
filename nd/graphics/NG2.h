@@ -15,7 +15,10 @@ class NG2 {
   public:
     void begin(SDL_Surface *target);
     void clear(NColor col);
+    void blit_image(SDL_Surface *img, int x, int y);
     void blit_sub_image(SDL_Surface *img, int x, int y, int sx, int sy, int sw,
                         int sh);
     void end();
+
+    static SDL_Surface *create_surface(int width, int height);
 };

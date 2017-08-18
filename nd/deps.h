@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <cmath>
 
 #ifdef desktop
 #include <iostream>
