@@ -10,6 +10,7 @@ class Vec2 {
   public:
     Vec2(float x, float y) : _x(x), _y(y) {}
     Vec2(float v) : Vec2(v, v) {}
+    Vec2() : Vec2(0) {}
 
     float getX() { return _x; }
     float getY() { return _y; }

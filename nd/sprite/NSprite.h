@@ -4,15 +4,18 @@
 #include "../assets/NAssets.h"
 #include "../entity/NEntity.h"
 #include "../graphics/NG2.h"
+#include "../util/Vec2.h"
 #include "NAnimationController.h"
 
 class NSprite : public NEntity {
   protected:
     SDL_Surface *_graphic = nullptr;
     int _vertFrames = 0, _horizFrames = 0;
+    int _frameWidth = 0, _frameHeight = 0;
 
   public:
     NAnimationController animation;
+    Vec2 offset;
 
     NSprite(int x = 0, int y = 0) : NEntity(x, y) {}
 

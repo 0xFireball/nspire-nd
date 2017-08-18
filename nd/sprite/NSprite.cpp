@@ -22,6 +22,9 @@ void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
     this->_vertFrames = assetBmp->h / frameHeight;
     this->_horizFrames = assetBmp->w / frameWidth;
 
+    this->_frameWidth = this->width;
+    this->_frameHeight = this->height;
+
     this->_graphic = assetBmp;
 }
 
@@ -33,10 +36,13 @@ void NSprite::render(NG2 *g2) {
     // render the sprite to the screen
     // MAJOR TODO for improvements
     if (this->_graphic != nullptr) {
-        // For now, we blit the entire sprite
-        // in the future we can blit partial images for animation.
-        // TODO: use framewidth and frameheight
-        g2->blit_sub_image(this->_graphic, this->x, this->y, 0, 0, this->width, this->height);
+        // blit the frame
+        int frameX = (animation.frameIndex % this->_horizFrames) * this->_frameWidth;
+        int frameY = animation.frameIndex / this->_horizFrames;
+        g2->blit_sub_image(this->_graphic,
+            this->x - this->offset.getX(), this->y - this->offset.getY(),
+            frameX, frameY,
+            this->_frameWidth, this->_frameHeight);
     }
     NEntity::render(g2);
 }
