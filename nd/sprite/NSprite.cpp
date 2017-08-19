@@ -42,6 +42,12 @@ void NSprite::makeGraphic(int width, int height, NColor col) {
     renderer.end();
 }
 
+void NSprite::setHitbox(int oX, int oY, int oW, int oH) {
+    offset.set(oX, oY);
+    width = oW;
+    height = oH;
+}
+
 void NSprite::update(float dt) { this->animation.update(dt); }
 
 void NSprite::render(NG2 &g2) {

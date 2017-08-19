@@ -27,6 +27,8 @@ class NSprite : public NEntity {
     void loadGraphic(NAssetPath asset, int frameWidth = 0, int frameHeight = 0);
     void makeGraphic(int width, int height, NColor col);
 
+    void setHitbox(int oX, int oY, int oW, int oH);
+
     virtual Rect getBounds() const;
 
     virtual void update(float dt);

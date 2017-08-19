@@ -11,8 +11,8 @@ class NCollision {
   public:
     NCollision(const Rect &bounds) : _bounds(bounds), _quad(0, bounds) {}
 
-    bool overlap(const NEntity &o1, const NEntity &o2) {
-        return Rect::intersect(o1.getBounds(), o2.getBounds());
+    bool overlap(std::shared_ptr<NEntity> o1, std::shared_ptr<NEntity> o2) {
+        return Rect::intersect(o1->getBounds(), o2->getBounds());
     }
 
     // bool overlap(const NGroup<NEntity> &g1, const NGroup<NEntity> &g2) {
