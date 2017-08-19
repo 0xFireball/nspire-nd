@@ -2,7 +2,9 @@
 #pragma once
 
 #include "NBasic.h"
+
 #include "../util/Vec2.h"
+#include "../util/Rect.h"
 
 class NEntity : public NBasic {
   protected:
@@ -19,4 +21,5 @@ class NEntity : public NBasic {
     Vec2 getPosition();
     void setPosition(Vec2 pos);
     Vec2 getCenter();
+    virtual Rect getBounds() const;
 };

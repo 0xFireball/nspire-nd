@@ -25,4 +25,10 @@ class Rect {
     friend bool operator==(const Rect &a, const Rect &b) {
         return a._x == b._x && a._y == b._y && a._w == b._w && a._h == b._h;
     }
+
+    static bool intersect(const Rect &a, const Rect &b) {
+        return a.getX() < b.getX() + b.getW() &&
+               a.getX() + a.getW() > b.getX() &&
+               a.getY() < b.getY() + b.getH() && a.getH() + a.getY() > b.getY();
+    }
 };

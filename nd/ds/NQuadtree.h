@@ -74,7 +74,7 @@ class NQuadtree {
     Rect bounds;
     std::array<std::shared_ptr<NQuadtree>, 4> nodes;
 
-    NQuadtree(int level, Rect bounds) : level(level), bounds(bounds) {}
+    NQuadtree(int level, const Rect &bounds) : level(level), bounds(bounds) {}
 
     // clear the quadtree
     void clear() {

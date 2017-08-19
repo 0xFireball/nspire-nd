@@ -28,6 +28,8 @@ class NSprite : public NEntity {
                      int frameHeight = 0);
     void makeGraphic(int width, int height, NColor col);
 
+    virtual Rect getBounds() const;
+
     virtual void update(float dt);
     virtual void render(NG2 *g2);
 

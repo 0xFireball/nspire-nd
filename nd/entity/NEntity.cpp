@@ -17,3 +17,7 @@ void NEntity::setPosition(Vec2 pos) {
 Vec2 NEntity::getCenter() {
     return this->getPosition() + (Vec2(this->width, this->height) / 2);
 }
+
+Rect NEntity::getBounds() const {
+    return Rect(this->x, this->y, this->width, this->height);
+}

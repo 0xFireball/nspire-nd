@@ -1,8 +1,12 @@
 
 #include "NSprite.h"
 
-void NSprite::loadGraphic(NAssetPath asset, int frameWidth,
-                          int frameHeight) {
+Rect NSprite::getBounds() const {
+    return Rect(this->x + this->offset.getX(), this->y + this->offset.getY(),
+                this->width, this->height);
+}
+
+void NSprite::loadGraphic(NAssetPath asset, int frameWidth, int frameHeight) {
     // load BMP asset and save to _graphic
     // use asset loader to get full path
     std::string asset_full_path = NAssetLoader::get_full_path(asset);
@@ -38,32 +42,32 @@ void NSprite::makeGraphic(int width, int height, NColor col) {
     renderer.end();
 }
 
-void NSprite::update(float dt) {
-    this->animation.update(dt);
-}
+void NSprite::update(float dt) { this->animation.update(dt); }
 
 void NSprite::render(NG2 *g2) {
     // render the sprite to the screen
     // MAJOR TODO for improvements
     if (this->_graphic != nullptr) {
         // blit the frame
-        int frameX = (animation.frameIndex % this->_horizFrames) * this->_frameWidth;
-        int frameY = (animation.frameIndex / this->_horizFrames) * this->_frameHeight;
+        int frameX =
+            (animation.frameIndex % this->_horizFrames) * this->_frameWidth;
+        int frameY =
+            (animation.frameIndex / this->_horizFrames) * this->_frameHeight;
         NG2 spriteRenderer;
         spriteRenderer.begin(this->_renderBuf);
         // spriteRenderer.blit_sub_image(this->_graphic,
         //     this->x - this->offset.getX(), this->y - this->offset.getY(),
         //     frameX, frameY,
         //     this->_frameWidth, this->_frameHeight);
-        spriteRenderer.blit_sub_image(this->_graphic,
-            0, 0,
-            frameX, frameY,
-            this->_frameWidth, this->_frameHeight);
+        spriteRenderer.blit_sub_image(this->_graphic, 0, 0, frameX, frameY,
+                                      this->_frameWidth, this->_frameHeight);
         spriteRenderer.end();
-        SDL_Surface *rot = rotozoomSurface(this->_renderBuf, this->angle, 1., 0);
+        SDL_Surface *rot =
+            rotozoomSurface(this->_renderBuf, this->angle, 1., 0);
         int xRotOff = rot->w / 2 - this->_renderBuf->w / 2;
         int yRotOff = rot->h / 2 - this->_renderBuf->h / 2;
-        g2->blit_image(rot, this->x - this->offset.getX() - xRotOff, this->y - this->offset.getY() - yRotOff);
+        g2->blit_image(rot, this->x - this->offset.getX() - xRotOff,
+                       this->y - this->offset.getY() - yRotOff);
         SDL_FreeSurface(rot);
     }
     NEntity::render(g2);
