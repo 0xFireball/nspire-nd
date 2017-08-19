@@ -37,7 +37,7 @@ template <class T> class NGroup : public NBasic {
         NBasic::update(dt);
     }
 
-    virtual void render(NG2 *g2) {
+    virtual void render(NG2 &g2) {
         for (std::shared_ptr<T> &member : this->members) {
             if (member != nullptr && member->_exists) {
                 member->render(g2);

@@ -133,7 +133,7 @@ void NGame::render() {
     NG2 g2;
     g2.begin(this->_screen);
     // render the current state
-    this->_currentState->render(&g2);
+    this->_currentState->render(g2);
     g2.end();
     // flip the buffers
     SDL_Flip(this->_screen);

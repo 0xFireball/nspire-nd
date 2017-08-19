@@ -21,7 +21,7 @@ class NState : public NGroup<NBasic> {
 
     virtual void create();
     virtual void update(float dt);
-    virtual void render(NG2 *g2);
+    virtual void render(NG2 &g2);
 
     void setClearColor(NColor col);
 
