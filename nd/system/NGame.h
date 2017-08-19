@@ -41,7 +41,7 @@ class NGame {
     NGame();
     void platform_init(int argc, char **argv);
     void init(int width, int height, int targetFramerate);
-    void switch_state(NState *state);
+    void switch_state(NState *state, bool destroy = true);
     void start();
     void quit();
     int get_frame_count();
