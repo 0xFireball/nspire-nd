@@ -15,7 +15,7 @@ class NState : public NGroup<NBasic> {
 
   public:
     bool created = false;
-    std::shared_ptr<NGame> game;
+    NGame *game;
 
     NState() : NGroup(0) {}
 
@@ -25,5 +25,7 @@ class NState : public NGroup<NBasic> {
 
     void setClearColor(NColor col);
 
-    virtual ~NState() {}
+    virtual ~NState() {
+      this->game = nullptr;
+    }
 };

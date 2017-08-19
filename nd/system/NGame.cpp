@@ -44,7 +44,7 @@ void NGame::switch_state(NState *state) {
         delete this->_currentState;
     }
     if (state != nullptr) {
-        state->game = std::shared_ptr<NGame>(this);
+        state->game = this;
         if (!state->created) {
             state->create();
         }
