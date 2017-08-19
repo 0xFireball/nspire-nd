@@ -1,4 +1,5 @@
 
+#ifdef ENABLE_TWEENS
 #include "NTweenManager.h"
 
 void NTweenManager::update(float dt) {
@@ -14,3 +15,4 @@ void NTweenManager::update(float dt) {
 
     NBasic::update(dt);
 }
+#endif
