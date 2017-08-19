@@ -6,6 +6,7 @@
 #include "../input/NKeyInput.h"
 #include "NClock.h"
 #include "NState.h"
+#include "../camera/NCamera.h"
 
 class NKeyInput;
 
@@ -34,6 +35,7 @@ class NGame {
     std::unique_ptr<NKeyInput> keys = nullptr;
     int width;
     int height;
+    NCamera camera;
 
     NGame();
     void platform_init(int argc, char **argv);
