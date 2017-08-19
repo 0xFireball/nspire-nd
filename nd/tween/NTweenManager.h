@@ -37,8 +37,10 @@ public:
 };
 
 class NTweenManager : public NBasic {
-public:
+protected:
     std::vector<NTweenParams> tweens;
-
+public:
     virtual void update(float dt);
+
+    
 };

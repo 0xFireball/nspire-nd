@@ -125,7 +125,7 @@ void NGame::game_loop() {
 
 void NGame::update(int dt) {
     // update the current state
-    this->_currentState->update(dt / 1000.0f);
+    this->_currentState->update((dt / 1000.0f) * this->timeScale);
 }
 
 void NGame::render() {

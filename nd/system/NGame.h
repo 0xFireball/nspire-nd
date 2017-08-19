@@ -35,6 +35,7 @@ class NGame {
     std::unique_ptr<NKeyInput> keys = nullptr;
     int width;
     int height;
+    float timeScale = 1.0f;
     NCamera camera;
 
     NGame();
