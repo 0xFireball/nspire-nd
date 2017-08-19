@@ -28,6 +28,11 @@ template <class T> class NGroup : public NBasic {
         return obj;
     }
 
+    std::vector<std::shared_ptr<T>> get_alive() {
+        // TODO: Filter by alive, valid, etc.
+        return members;
+    }
+
     virtual void update(float dt) {
         for (std::shared_ptr<T> &member : this->members) {
             if (member != nullptr && member->_exists) {
