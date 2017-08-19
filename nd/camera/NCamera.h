@@ -12,7 +12,7 @@ public:
 
     void update(float);
 
-    void render(NG2 &g2, NBasic *drawRoot) {
+    void render(NG2 &g2, std::shared_ptr<NBasic> drawRoot) {
 
         // scroll transformation
         g2.pushTransformation(

@@ -38,10 +38,10 @@ void NGame::init(int width, int height, int targetFramerate) {
     this->keys = std::make_unique<NKeyInput>();
 }
 
-void NGame::switch_state(NState *state, bool destroy) {
-    if (this->_currentState != nullptr && destroy) {
+void NGame::switch_state(std::shared_ptr<NState> state, bool destroy) {
+    if (this->_currentState && destroy) {
         this->_currentState->destroy();
-        delete this->_currentState;
+        this->_currentState = nullptr;
     }
     if (state != nullptr) {
         state->game = this;

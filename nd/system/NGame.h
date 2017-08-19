@@ -19,7 +19,7 @@ class NGame {
     std::string _cwd;
     std::unique_ptr<NClock> _clock;
     bool _quit = false;
-    NState *_currentState;
+    std::shared_ptr<NState>_currentState;
     bool _limitFramerate = true;
 
     void init_vars();
@@ -41,7 +41,7 @@ class NGame {
     NGame();
     void platform_init(int argc, char **argv);
     void init(int width, int height, int targetFramerate);
-    void switch_state(NState *state, bool destroy = true);
+    void switch_state(std::shared_ptr<NState>, bool destroy = true);
     void start();
     void quit();
     int get_frame_count();
