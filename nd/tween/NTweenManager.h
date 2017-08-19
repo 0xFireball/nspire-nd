@@ -6,16 +6,19 @@
 #include "../entity/NBasic.h"
 #include "NTween.h"
 
+class NTweenParams;
+typedef std::function<void(NTweenParams &)> TweenCallback;
+
 class NTweenParams {
 private:
-    std::function<void(NTweenParams &)> _finishCallback;
+    TweenCallback _finishCallback;
 public:
     NTween tween;
     float duration;
     float age = 0;
     bool done = false;
 
-    NTweenParams(NTween tw, float duration, std::function<void(NTweenParams &)> finishCallback = nullptr) : _finishCallback(finishCallback), tween(tw),
+    NTweenParams(NTween tw, float duration, TweenCallback finishCallback = nullptr) : _finishCallback(finishCallback), tween(tw),
         duration(duration) {}
 
     bool update(float dt) {
@@ -42,5 +45,8 @@ protected:
 public:
     virtual void update(float dt);
 
-    
+    void valueTween(NTween tw, float duration, TweenCallback callback) {
+        auto tween = NTweenParams(tw, duration, callback);
+        tweens.push_back(tween);
+    }
 };

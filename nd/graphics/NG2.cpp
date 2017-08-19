@@ -5,7 +5,7 @@ void NG2::begin(SDL_Surface *target) { this->_target = target; }
 
 void NG2::clear(NColor col) {
     SDL_FillRect(this->_target, nullptr,
-                 SDL_MapRGB(this->_target->format, col.r, col.g, col.b));
+                 SDL_MapRGB(this->_target->format, col.fmt(col.r), col.fmt(col.g), col.fmt(col.b)));
 }
 
 void NG2::blit_image(SDL_Surface *img, Vec2 pos) {

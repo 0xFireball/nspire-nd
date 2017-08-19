@@ -20,20 +20,12 @@ class NTween {
 
     NTween(float &v, float e, EaseFunction ease) : _v(v), _ease(ease) {
         float s = v;
-        if (e < s) {
-            float t = e;
-            e = s;
-            s = t;
-        }
         _s = s;
         _e = e;
     }
 
-    NTween& operator= (NTween const& other) {
-        _v = other._v;
-        _s = other._s;
-        _e = other._e;
-        _ease = other._ease;
+    // unused except for removing
+    NTween& operator= (NTween const&) {
         return *this;
     }
 
@@ -42,3 +34,14 @@ class NTween {
         return _v;
     }
 };
+
+// class NColorTween : public NTween {
+// public:
+//     float &_v_r;
+//     float &_v_g;
+//     float &_v_b;
+
+//     NColorTween(NColor) {
+
+//     }
+// }

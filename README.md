@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 
 void GameState::create() {
 
-    this->setClearColor(NColor(84, 84, 84));
+    this->setClearColor(NColor(0.0f));
 
     auto ball = std::make_shared<Ball>(20, 20);
     ball->loadGraphic("ball.bmp.tns");
