@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+#include "Mat33.h"
+
 class Vec2 {
   private:
     float _x, _y;
@@ -18,7 +20,15 @@ class Vec2 {
     void setX(float x) { _x = x; }
     void setY(float y) { _y = y; }
 
-    void set(float x, float y) { _x = x; _y = y; }
+    void copyFrom(const Vec2 &other) {
+        _x = other.getX();
+        _y = other.getY();
+    }
+
+    void set(float x, float y) {
+        _x = x;
+        _y = y;
+    }
 
     float length() { return std::sqrt(_x * _x + _y * _y); }
 
@@ -55,11 +65,21 @@ class Vec2 {
         _y /= scalar;
         return *this;
     }
+
     Vec2 &normalize() {
         float l = length();
         if (l > 0) {
             (*this) *= 1 / l;
         }
         return *this;
+    }
+
+    float dot(const Vec2 &v) { return _x * v.getX() + _y * v.getY(); }
+
+    void transform(const Mat33 &mat) {
+        float w = mat._02 * _x + mat._12 * _y + mat._22 * 1;
+        float x = (mat._00 * _x + mat._10 * _y + mat._20 * 1) / w;
+        float y = (mat._01 * _x + mat._11 * _y + mat._21 * 1) / w;
+        set(x, y);
     }
 };
