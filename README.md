@@ -28,19 +28,19 @@ Build for linux (or any desktop, really):
 
 `main.cpp`
 ```cpp
-#include "nd/nd.h"
 #include <memory>
 
-#include "gamestate.h"
+#include "deps.h"
 
-int main(int argc, char** argv)
-{
-    std::unique_ptr<NGame> game(new NGame());
+#include "states/gamestate.h"
+
+int main(int argc, char **argv) {
+    auto game = std::make_shared<NGame>();
 
     game->platform_init(argc, argv);
 
-    // Initialize NGame at max screen size, 60FPS target
-    game->init(0, 0, 60);
+    // Initialize NGame at max screen size, 30FPS target
+    game->init(0, 0, 30);
     game->switch_state(new GameState());
     game->start();
 
@@ -53,20 +53,27 @@ int main(int argc, char** argv)
 #include "gamestate.h"
 
 void GameState::create() {
-    // add sprite
-    // TODO
 
     this->setClearColor(NColor(84, 84, 84));
 
-    NSprite* ball = new NSprite(20, 20);
+    auto ball = std::make_shared<Ball>(20, 20);
     ball->loadGraphic("ball.bmp.tns");
     this->add(ball);
+
+    // TODO: Add more sprites and objects
 
     NState::create();
 }
 
 void GameState::update(float dt) {
-    // TODO: add custom update logic
+
+    // TODO: Add additional custom update logic
+
+    bool esc = this->game->keys->pressed(SDLK_ESCAPE);
+    if (esc) {
+        this->game->quit();
+    }
+
     NState::update(dt);
 }
 ```
