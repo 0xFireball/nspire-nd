@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 
     // Initialize NGame at max screen size, 30FPS target
     game->init(0, 0, 30);
-    game->switch_state(new GameState());
+    game->switch_state(std::make_shared<GameState>);
     game->start();
 
     return 0;
