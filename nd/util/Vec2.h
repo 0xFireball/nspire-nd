@@ -12,8 +12,8 @@ class Vec2 {
     Vec2(float v) : Vec2(v, v) {}
     Vec2() : Vec2(0) {}
 
-    float getX() { return _x; }
-    float getY() { return _y; }
+    float getX() const { return _x; }
+    float getY() const { return _y; }
 
     void setX(float x) { _x = x; }
     void setY(float y) { _y = y; }
