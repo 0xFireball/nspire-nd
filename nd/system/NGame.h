@@ -16,7 +16,7 @@ class NGame {
     int _targetFramerate;
     int _targetFramerateTicks;
     std::string _cwd;
-    NClock *_clock;
+    std::unique_ptr<NClock> _clock;
     bool _quit = false;
     NState *_currentState;
     bool _limitFramerate = true;
@@ -31,7 +31,7 @@ class NGame {
     void exit();
 
   public:
-    NKeyInput *keys = nullptr;
+    std::unique_ptr<NKeyInput> keys = nullptr;
     int width;
     int height;
 

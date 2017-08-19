@@ -32,10 +32,10 @@ void NGame::init(int width, int height, int targetFramerate) {
     this->init_vars();
 
     // prepare rendering loop
-    this->_clock = new NClock();
+    this->_clock = std::make_unique<NClock>();
 
     // initialize keyboard system
-    this->keys = new NKeyInput();
+    this->keys = std::make_unique<NKeyInput>();
 }
 
 void NGame::switch_state(NState *state) {
@@ -60,8 +60,6 @@ void NGame::destroy() {
     SDL_FreeSurface(this->_screen);
 
     // free other resources
-    if (this->_clock != nullptr)
-        delete this->_clock;
 }
 
 void NGame::exit() {
