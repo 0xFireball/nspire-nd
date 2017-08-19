@@ -18,4 +18,7 @@ class NKeyInput {
 
     bool pressed(int key);
     bool anyPressed(const std::vector<int> &keys);
+
+    bool justPressed(int key, int frame);
+    bool anyJustPressed(const std::vector<int> &keys, int frame);
 };

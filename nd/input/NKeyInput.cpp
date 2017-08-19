@@ -31,3 +31,16 @@ bool NKeyInput::anyPressed(const std::vector<int> &keys) {
     }
     return false;
 }
+
+bool NKeyInput::justPressed(int key, int frame) {
+    this->ensure_position(key);
+    NKeyState keyState = this->_state[key];
+    return keyState.justPressed(frame);
+}
+
+bool NKeyInput::anyJustPressed(const std::vector<int> &keys, int frame) {
+    for (int i = 0; i < (int)keys.size(); i++) {
+        if (this->justPressed(keys[i], frame)) return true;
+    }
+    return false;
+}
