@@ -3,18 +3,19 @@
 
 #include "../deps.h"
 
-#include "../util/NColor.h"
-#include "../group/NGroup.h"
 #include "../graphics/NG2.h"
+#include "../group/NGroup.h"
+#include "../util/NColor.h"
 
 class NGame;
 
 class NState : public NGroup<NBasic> {
-private:
+  private:
     NColor _clearColor;
-public:
+
+  public:
     bool created = false;
-    NGame *game;
+    std::shared_ptr<NGame> game;
 
     NState() : NGroup(0) {}
 

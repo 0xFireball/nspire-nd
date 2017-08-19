@@ -44,8 +44,10 @@ void NGame::switch_state(NState *state) {
         delete this->_currentState;
     }
     if (state != nullptr) {
-        state->game = this;
-        if (!state->created) { state->create(); }
+        state->game = std::shared_ptr<NGame>(this);
+        if (!state->created) {
+            state->create();
+        }
     }
     this->_currentState = state;
 }
@@ -67,9 +69,7 @@ void NGame::exit() {
     SDL_Quit();
 }
 
-void NGame::quit() {
-    this->_quit = true;
-}
+void NGame::quit() { this->_quit = true; }
 
 void NGame::start() {
     this->_clock->reset();
@@ -112,9 +112,10 @@ void NGame::game_loop() {
             if (aheadTime > 0) {
                 SDL_Delay(aheadTime); // sleep
             } else {
-                #if GRAPHICS_DEBUG
-                std::cout << "dropped frame " << this->_frameCount + 1 << std::endl;
-                #endif
+#if GRAPHICS_DEBUG
+                std::cout << "dropped frame " << this->_frameCount + 1
+                          << std::endl;
+#endif
             }
         }
     }
