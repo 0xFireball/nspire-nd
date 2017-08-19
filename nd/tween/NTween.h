@@ -9,7 +9,8 @@ typedef std::function<float(float)> EaseFunction;
 class EaseFunctions {
 public:
     static EaseFunction EASE_LINEAR;
-    static EaseFunction EASE_SQRT;
+    static EaseFunction EASE_QUAD_IN;
+    static EaseFunction EASE_QUAD_OUT;
 };
 
 class NTween {
