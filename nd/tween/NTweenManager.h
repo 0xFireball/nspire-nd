@@ -45,8 +45,9 @@ protected:
 public:
     virtual void update(float dt);
 
-    void tween(std::shared_ptr<NTween> tw, float duration, TweenCallback cb = nullptr) {
+    std::shared_ptr<NTween> tween(std::shared_ptr<NTween> tw, float duration, TweenCallback cb = nullptr) {
         auto tween = NTweenParams(tw, duration, cb);
         tweens.push_back(tween);
+        return tw;
     }
 };

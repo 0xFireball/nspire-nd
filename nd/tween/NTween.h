@@ -19,6 +19,7 @@ class NTween {
     float _s;  // start value
     float _e;  // end value
     EaseFunction _ease;
+    bool done = false;
 
     NTween(float &v, float e, EaseFunction ease) : _v(v), _ease(ease) {
         float s = v;
@@ -33,6 +34,7 @@ class NTween {
 
     virtual float update(float t) {
         _v = _s + _ease(t) * (_e - _s);
+        done = t >= 1.0;
         return _v;
     }
 };
