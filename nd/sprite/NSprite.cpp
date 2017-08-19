@@ -72,8 +72,9 @@ void NSprite::render(NG2 &g2) {
             rotozoomSurface(this->_renderBuf, this->angle, 1., 0);
         int xRotOff = rot->w / 2 - this->_renderBuf->w / 2;
         int yRotOff = rot->h / 2 - this->_renderBuf->h / 2;
-        g2.blit_image(rot, this->x - this->offset.getX() - xRotOff,
-                      this->y - this->offset.getY() - yRotOff);
+        // g2.blit_image(rot, this->x - this->offset.getX() - xRotOff,
+        //               this->y - this->offset.getY() - yRotOff);
+        g2.blit_image(rot, this->x - xRotOff, this->y - yRotOff);
         SDL_FreeSurface(rot);
     }
     NEntity::render(g2);
