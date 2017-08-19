@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <deque>
 #include <algorithm>
 #include <map>
 #include <cmath>

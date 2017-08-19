@@ -65,7 +65,7 @@ void NSprite::render(NG2 &g2) {
         //     this->x - this->offset.getX(), this->y - this->offset.getY(),
         //     frameX, frameY,
         //     this->_frameWidth, this->_frameHeight);
-        spriteRenderer.blit_sub_image(this->_graphic, 0, 0, frameX, frameY,
+        spriteRenderer.blit_sub_image(this->_graphic, Vec2(0, 0), frameX, frameY,
                                       this->_frameWidth, this->_frameHeight);
         spriteRenderer.end();
         SDL_Surface *rot =
@@ -74,7 +74,7 @@ void NSprite::render(NG2 &g2) {
         int yRotOff = rot->h / 2 - this->_renderBuf->h / 2;
         // g2.blit_image(rot, this->x - this->offset.getX() - xRotOff,
         //               this->y - this->offset.getY() - yRotOff);
-        g2.blit_image(rot, this->x - xRotOff, this->y - yRotOff);
+        g2.blit_image(rot, Vec2(this->x - xRotOff, this->y - yRotOff));
         SDL_FreeSurface(rot);
     }
     NEntity::render(g2);
