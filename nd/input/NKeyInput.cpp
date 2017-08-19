@@ -1,6 +1,5 @@
 
 #include "NKeyInput.h"
-#include "../util/array.h"
 
 void NKeyInput::pump_keydown(int k) {
     this->ensure_position(k);
@@ -26,8 +25,8 @@ bool NKeyInput::pressed(int key) {
     return keyState.pressed();
 }
 
-bool NKeyInput::anyPressed(int keys[]) {
-    for (int i = 0; i < arr_size<int>(keys); i++) {
+bool NKeyInput::anyPressed(const std::vector<int> &keys) {
+    for (int i = 0; i < (int)keys.size(); i++) {
         if (this->pressed(keys[i])) return true;
     }
     return false;

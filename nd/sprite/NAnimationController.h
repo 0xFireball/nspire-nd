@@ -2,7 +2,6 @@
 #pragma once
 
 #include "../deps.h"
-#include "../util/array.h"
 
 class NAnimation {
   public:

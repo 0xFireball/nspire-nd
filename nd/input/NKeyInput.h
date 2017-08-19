@@ -17,5 +17,5 @@ class NKeyInput {
     void pump_keyup(int k);
 
     bool pressed(int key);
-    bool anyPressed(int keys[]);
+    bool anyPressed(const std::vector<int> &keys);
 };
