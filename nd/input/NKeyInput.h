@@ -13,7 +13,7 @@ class NKeyInput {
     void ensure_position(int k);
 
   public:
-    void pump_keydown(int k);
+    void pump_keydown(int k, int frame = 0);
     void pump_keyup(int k);
 
     bool pressed(int key);

@@ -1,9 +1,9 @@
 
 #include "NKeyInput.h"
 
-void NKeyInput::pump_keydown(int k) {
+void NKeyInput::pump_keydown(int k, int frame) {
     this->ensure_position(k);
-    this->_state[k].pump_press();
+    this->_state[k].pump_press(frame);
 }
 
 void NKeyInput::pump_keyup(int k) {

@@ -11,8 +11,9 @@ class NKeyState {
     int _pressFrame = 0;
 
   public:
-    void pump_press() {
+    void pump_press(int frame = 0) {
         _down = true;
+        _pressFrame = frame;
     }
 
     void pump_release() {

@@ -85,7 +85,7 @@ void NGame::game_loop() {
                 this->quit();
                 break;
             case SDL_KEYDOWN:
-                this->keys->pump_keydown(event.key.keysym.sym);
+                this->keys->pump_keydown(event.key.keysym.sym, this->_frameCount);
                 break;
             case SDL_KEYUP:
                 this->keys->pump_keyup(event.key.keysym.sym);
