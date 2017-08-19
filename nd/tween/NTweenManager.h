@@ -13,12 +13,12 @@ class NTweenParams {
 private:
     TweenCallback _finishCallback;
 public:
-    NTween tween;
+    std::shared_ptr<NTween> tween;
     float duration;
     float age = 0;
     bool done = false;
 
-    NTweenParams(NTween tw, float duration, TweenCallback finishCallback = nullptr) : _finishCallback(finishCallback), tween(tw),
+    NTweenParams(std::shared_ptr<NTween> tw, float duration, TweenCallback finishCallback = nullptr) : _finishCallback(finishCallback), tween(tw),
         duration(duration) {}
 
     bool update(float dt) {
@@ -28,7 +28,7 @@ public:
                 age = duration;
                 done = true;
             }
-            tween.update(age / duration);
+            tween->update(age / duration);
             return !done;
         } else {
             if (this->_finishCallback) {
@@ -45,8 +45,8 @@ protected:
 public:
     virtual void update(float dt);
 
-    void valueTween(NTween tw, float duration, TweenCallback callback) {
-        auto tween = NTweenParams(tw, duration, callback);
+    void tween(std::shared_ptr<NTween> tw, float duration, TweenCallback cb = nullptr) {
+        auto tween = NTweenParams(tw, duration, cb);
         tweens.push_back(tween);
     }
 };

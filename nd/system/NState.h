@@ -10,10 +10,8 @@
 class NGame;
 
 class NState : public NGroup<NBasic> {
-  private:
-    NColor _clearColor;
-
   public:
+    NColor _clearColor;
     bool created = false;
     NGame *game;
 

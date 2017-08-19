@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../deps.h"
+#include "../util/NColor.h"
 
 typedef std::function<float(float)> EaseFunction;
 
@@ -29,19 +30,31 @@ class NTween {
         return *this;
     }
 
-    float update(float t) {
+    virtual float update(float t) {
         _v = _s + _ease(t) * (_e - _s);
         return _v;
     }
 };
 
-// class NColorTween : public NTween {
-// public:
-//     float &_v_r;
-//     float &_v_g;
-//     float &_v_b;
+class NColorTween : public NTween {
+private:
+    NTween _rT;
+    NTween _gT;
+    NTween _bT;
 
-//     NColorTween(NColor) {
+    float _v = 0;
 
-//     }
-// }
+public:
+
+    NColorTween(NColor &startCol, NColor endCol, EaseFunction ease) : NTween(_v, 0, ease),
+        _rT(startCol.r, endCol.r, ease), _gT(startCol.g, endCol.g, ease), _bT(startCol.b, endCol.b, ease) {
+    }
+
+    virtual float update(float t) {
+        _rT.update(t);
+        _gT.update(t);
+        _bT.update(t);
+
+        return NTween::update(t);
+    }
+};
