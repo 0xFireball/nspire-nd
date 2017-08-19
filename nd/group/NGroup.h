@@ -5,33 +5,31 @@
 
 #include "../entity/NBasic.h"
 
-template <class T>
-class NGroup : public NBasic {
-private:
+template <class T> class NGroup : public NBasic {
+  private:
     int _freePosition = 0;
 
-public:
-    std::vector<T*> members;
+  public:
+    std::vector<std::shared_ptr<T>> members;
     int memberCount = 0;
     int maxSize = 0;
 
-    NGroup(int maxSize) {
-        this->maxSize = maxSize;
-    }
+    NGroup(int maxSize) { this->maxSize = maxSize; }
 
-    T* add(T* obj) {
+    std::shared_ptr<T> add(std::shared_ptr<T> obj) {
         this->members.push_back(obj);
         return obj;
     }
 
-    T* remove(T* obj) {
-        this->members.erase(std::remove(this->members.begin(), this->members.end(), obj),
+    std::shared_ptr<T> remove(std::shared_ptr<T> obj) {
+        this->members.erase(
+            std::remove(this->members.begin(), this->members.end(), obj),
             this->members.end());
         return obj;
     }
 
     virtual void update(float dt) {
-        for (T*& member: this->members) {
+        for (std::shared_ptr<T> &member : this->members) {
             if (member != nullptr && member->_exists) {
                 member->update(dt);
             }
@@ -40,7 +38,7 @@ public:
     }
 
     virtual void render(NG2 *g2) {
-        for (T*& member: this->members) {
+        for (std::shared_ptr<T> &member : this->members) {
             if (member != nullptr && member->_exists) {
                 member->render(g2);
             }
@@ -50,12 +48,14 @@ public:
 
     virtual void destroy() {
         // call destroy on all group members
-        for (T*& member: this->members) {
-            if (member != nullptr) { member->destroy(); }
+        for (std::shared_ptr<T> &member : this->members) {
+            if (member != nullptr) {
+                member->destroy();
+            }
         }
 
         NBasic::destroy();
     }
-    
+
     virtual ~NGroup() {}
 };

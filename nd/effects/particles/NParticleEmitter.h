@@ -12,7 +12,7 @@ public:
     void emitSquare(int x, int y, int size, Vec2 velocity, NColor col, float life) {
         x -= size / 2;
         y -= size / 2;
-        NParticle *particle = new NParticle(x, y, col, life);
+        std::shared_ptr<NParticle> particle = std::make_shared<NParticle>(x, y, col, life);
         particle->makeGraphic(x, y, col);
         particle->velocity = velocity;
         this->add(particle);
