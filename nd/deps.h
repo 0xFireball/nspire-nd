@@ -15,6 +15,10 @@
 #include <iostream>
 #endif
 
+#ifdef ENABLE_TWEENS
+#include <functional>
+#endif
+
 // SDL
 #include <SDL/SDL.h>
 #include <SDL/SDL_config.h>

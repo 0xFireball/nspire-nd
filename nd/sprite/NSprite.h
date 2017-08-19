@@ -21,7 +21,7 @@ class NSprite : public NEntity {
     Vec2 offset;
     float angle = 0;
 
-    NSprite(int x = 0, int y = 0) : NEntity(x, y) {}
+    NSprite(float x = 0, float y = 0) : NEntity(x, y) {}
 
     // sprite
     void loadGraphic(NAssetPath asset, int frameWidth = 0, int frameHeight = 0);

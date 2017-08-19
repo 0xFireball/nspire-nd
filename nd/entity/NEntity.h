@@ -11,12 +11,12 @@ class NEntity : public NBasic {
     void init();
 
   public:
-    int x;
-    int y;
-    int width;
-    int height;
+    float x;
+    float y;
+    float width;
+    float height;
 
-    NEntity(int x = 0, int y = 0, int width = 0, int height = 0)
+    NEntity(float x = 0, float y = 0, float width = 0, float height = 0)
         : NBasic(), x(x), y(y), width(width), height(height) {}
     Vec2 getPosition();
     void setPosition(Vec2 pos);

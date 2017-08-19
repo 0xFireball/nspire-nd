@@ -22,3 +22,7 @@
 
 #include "collision/NCollision.h"
 
+#ifdef ENABLE_TWEENS
+#include "tween/NTweenManager.h"
+#endif
+

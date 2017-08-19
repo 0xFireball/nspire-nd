@@ -13,7 +13,7 @@ protected:
     void update_motion(float dt);
 
 public:
-    KinematicSprite(int x, int y) : NSprite(x, y) {}
+    KinematicSprite(float x, float y) : NSprite(x, y) {}
 
     Vec2 velocity;
     Vec2 maxVelocity;
