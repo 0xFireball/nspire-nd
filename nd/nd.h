@@ -22,7 +22,7 @@
 
 #include "collision/NCollision.h"
 
-#ifdef ENABLE_TWEENS
+#ifndef DISABLE_TWEENS
 #include "tween/NTweenManager.h"
 #endif
 

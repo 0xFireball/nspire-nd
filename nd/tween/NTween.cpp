@@ -1,5 +1,5 @@
 
-#ifdef ENABLE_TWEENS
+#ifndef DISABLE_TWEENS
 #include "NTween.h"
 
 EaseFunction EaseFunctions::EASE_LINEAR = [](float t) { return t; };

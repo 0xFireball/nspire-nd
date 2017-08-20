@@ -1,5 +1,5 @@
 
-#ifdef ENABLE_TWEENS
+#ifndef DISABLE_TWEENS
 #include "NTweenManager.h"
 
 void NTweenManager::update(float dt) {

@@ -17,7 +17,7 @@
 #include <iostream>
 #endif
 
-#ifdef ENABLE_TWEENS
+#ifndef DISABLE_TWEENS
 #include <functional>
 #endif
 
