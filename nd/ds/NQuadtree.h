@@ -22,13 +22,13 @@ class NQuadtree {
         int subX = bounds.getX();
         int subY = bounds.getY();
 
-        nodes[0] = std::make_shared<NQuadtree>(
+        nodes[0] = std::make_unique<NQuadtree>(
             level + 1, Rect(subX + subW, subY, subW, subH));
-        nodes[1] = std::make_shared<NQuadtree>(level + 1,
+        nodes[1] = std::make_unique<NQuadtree>(level + 1,
                                                Rect(subX, subY, subW, subH));
-        nodes[2] = std::make_shared<NQuadtree>(
+        nodes[2] = std::make_unique<NQuadtree>(
             level + 1, Rect(subX, subY + subH, subW, subH));
-        nodes[3] = std::make_shared<NQuadtree>(
+        nodes[3] = std::make_unique<NQuadtree>(
             level + 1, Rect(subX + subW, subY + subH, subW, subH));
     }
 
@@ -72,7 +72,7 @@ class NQuadtree {
     int level;
     std::vector<Rect> objects;
     Rect bounds;
-    std::array<std::shared_ptr<NQuadtree>, 4> nodes;
+    std::array<std::unique_ptr<NQuadtree>, 4> nodes;
 
     NQuadtree(int level, const Rect &bounds) : level(level), bounds(bounds) {}
 
