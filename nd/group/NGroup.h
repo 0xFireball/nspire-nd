@@ -33,6 +33,7 @@ template <class T> class NGroup : public NBasic {
         bool full = this->maxSize > 0 && (int)members.size() >= this->maxSize;
         if (!full) { // members is below capacity, just append
             this->members.push_back(obj);
+            ++memberCount;
         } else {
             // attempt to recycle
             int ix = this->getFirstAvailable();
