@@ -30,7 +30,7 @@ template <class T> class NGroup : public NBasic {
     NGroup(int maxSize) : maxSize(maxSize) {}
 
     std::shared_ptr<T> add(std::shared_ptr<T> obj) {
-        bool full = (int)members.size() >= this->maxSize;
+        bool full = this->maxSize > 0 && (int)members.size() >= this->maxSize;
         if (!full) { // members is below capacity, just append
             this->members.push_back(obj);
         } else {
@@ -41,7 +41,7 @@ template <class T> class NGroup : public NBasic {
                 ix = _freePosition;
                 --memberCount; // old member is removed
                 // force destroy the member
-                if (members[ix]->_exists) {
+                if (members[ix] && members[ix]->_exists) {
                     members[ix]->destroy();
                 }
             }
