@@ -40,6 +40,7 @@ class NGame {
 
     NGame();
     void platform_init(int argc, char **argv);
+    void platform_deinit();
     void init(int width, int height, int targetFramerate);
     void switch_state(std::shared_ptr<NState>, bool destroy = true);
     void start();

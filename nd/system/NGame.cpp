@@ -1,5 +1,6 @@
 
 #include "NGame.h"
+#include "NPlatform.h"
 #include "../assets/NAssets.h"
 
 NGame::NGame() {}
@@ -13,6 +14,11 @@ void NGame::platform_init(int argc, char **argv) {
         // set asset path
         NAssetLoader::set_base_path(cwd);
     }
+    NPlatform::platform_init();
+}
+
+void NGame::platform_deinit() {
+    NPlatform::platform_deinit();
 }
 
 void NGame::init(int width, int height, int targetFramerate) {
