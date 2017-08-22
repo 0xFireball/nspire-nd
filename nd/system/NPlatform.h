@@ -6,14 +6,24 @@
 class NPlatform {
 public:
     #ifdef nspire
-    static void platform_init() {
+    static bool platform_init() {
+        return true;
     }
-    static void platform_deinit() {
+    static bool platform_deinit() {
+        return true;
     }
     #elif desktop
-    static void platform_init() {
+    static bool platform_init() {
+        // Initialize SDL_ttf
+        if (TTF_Init() == -1) {
+            return false;
+        }
+        return true;
     }
-    static void platform_deinit() {
+    static bool platform_deinit() {
+        // quit SDL_ttf
+        TTF_Quit();
+        return true;
     }
     #endif
 };
