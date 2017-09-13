@@ -26,3 +26,8 @@
 #include <SDL/SDL_config.h>
 #include <SDL/SDL_gfxPrimitives.h>
 #include <SDL/SDL_rotozoom.h>
+
+#if desktop
+// SDL_ttf
+#include <SDL/SDL_ttf.h>
+#endif

@@ -16,13 +16,9 @@ on my TI Nspire simply by changing the build target.
 Features include a framerate-limited game loop and
 cross-platform BMP loading and SDL rendering.
 
-## Build/run this demo
+## Demos
 
-Build for ndless:
-`make DISTDIR=binspire XPLAT_TARGET=nspire`
-
-Build for linux (or any desktop, really):
-`make DISTDIR=linux XPLAT_TARGET=desktop`
+See [`nspire-nd-demos`](https://github.com/0xFireball/nspire-nd-demos) for demos of the major features.
 
 ## What the API looks like
 
