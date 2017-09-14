@@ -40,6 +40,9 @@ void NGame::init(int width, int height, int targetFramerate) {
 
   // initialize keyboard system
   this->keys = std::make_unique<NKeyInput>();
+
+  // initialize camera
+  camera.bounds.set(this->width, this->height);
 }
 
 void NGame::switch_state(std::shared_ptr<NState> state, bool destroy) {
@@ -126,10 +129,11 @@ void NGame::game_loop() {
   this->exit();
 }
 
-void NGame::update(int dt) {
+void NGame::update(int mdt) {
   // update the current state
+  float dt = (mdt / 1000.0f);
   this->camera.update(dt);
-  this->_currentState->update((dt / 1000.0f) * this->timeScale);
+  this->_currentState->update(dt * this->timeScale);
 }
 
 void NGame::render() {

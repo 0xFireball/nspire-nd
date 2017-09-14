@@ -20,6 +20,15 @@ public:
 
   NCameraFollowStyle followStyle = NCameraFollowStyle::NONE;
 
+  Vec2 bounds;
+
+  void reset() {
+    lerp = 0.2f;
+    followStyle = NCameraFollowStyle::NONE;
+    _followTarget.reset();
+    scroll.set(0, 0);
+  }
+
   void render(NG2 &g2, std::shared_ptr<NBasic> drawRoot) {
 
     // scroll transformation
@@ -30,14 +39,14 @@ public:
     g2.popTransformation(); // scroll
   }
 
-  void update(float dt) {
+  void update(float) {
     if (followStyle == NCameraFollowStyle::NONE) {
       // ?
     } else if (followStyle == NCameraFollowStyle::LOCKON) {
       // lerp the position
-      // scroll.x += (_followTarget->x - scroll.x) * dt * lerp;
-      // scroll.y += (_followTarget->y - scroll.y) * dt * lerp;
-      scroll += (_followTarget->getCenter() - scroll) * dt * lerp;
+      Vec2 targetScroll = _followTarget->getCenter() - (bounds / 2);
+      scroll += (targetScroll - scroll) * lerp;
+      // std::cout << scroll.getX() << " " << scroll.getY() << std::endl;
     } else if (followStyle == NCameraFollowStyle::DEADZONE) {
       // TODO
     }

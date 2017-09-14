@@ -27,7 +27,7 @@
 #include <SDL/SDL_gfxPrimitives.h>
 #include <SDL/SDL_rotozoom.h>
 
-#if desktop
+#if defined(desktop) && defined(ENABLE_TTF)
 // SDL_ttf
 #include <SDL/SDL_ttf.h>
 #endif
