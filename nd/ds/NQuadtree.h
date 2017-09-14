@@ -10,131 +10,140 @@
 
 #include "../util/Rect.h"
 
+struct NCollisionEntity {
+  std::shared_ptr<NEntity> entity;
+  Rect bounds;
+
+  NCollisionEntity(std::shared_ptr<NEntity> entity, Rect bounds)
+      : entity(entity), bounds(bounds) {}
+};
+
 class NQuadtree {
-  private:
-    static const int MAX_OBJECTS = 10;
-    static const int MAX_LEVELS = 5;
+private:
+  static const int MAX_OBJECTS = 10;
+  static const int MAX_LEVELS = 5;
 
-    // split the node into 4 subnodes
-    void split() {
-        int subW = bounds.getW() / 2;
-        int subH = bounds.getH() / 2;
-        int subX = bounds.getX();
-        int subY = bounds.getY();
+  // split the node into 4 subnodes
+  void split() {
+    int subW = bounds.getW() / 2;
+    int subH = bounds.getH() / 2;
+    int subX = bounds.getX();
+    int subY = bounds.getY();
 
-        nodes[0] = std::make_unique<NQuadtree>(
-            level + 1, Rect(subX + subW, subY, subW, subH));
-        nodes[1] = std::make_unique<NQuadtree>(level + 1,
-                                               Rect(subX, subY, subW, subH));
-        nodes[2] = std::make_unique<NQuadtree>(
-            level + 1, Rect(subX, subY + subH, subW, subH));
-        nodes[3] = std::make_unique<NQuadtree>(
-            level + 1, Rect(subX + subW, subY + subH, subW, subH));
+    nodes[0] = std::make_unique<NQuadtree>(level + 1,
+                                           Rect(subX + subW, subY, subW, subH));
+    nodes[1] =
+        std::make_unique<NQuadtree>(level + 1, Rect(subX, subY, subW, subH));
+    nodes[2] = std::make_unique<NQuadtree>(level + 1,
+                                           Rect(subX, subY + subH, subW, subH));
+    nodes[3] = std::make_unique<NQuadtree>(
+        level + 1, Rect(subX + subW, subY + subH, subW, subH));
+  }
+
+  /*
+  * Determine which node the object belongs to. -1 means
+  * object cannot completely fit within a child node and is part
+  * of the parent node
+  */
+  int getIndex(const NCollisionEntity &entity) {
+    int index = -1;
+    float vertM = bounds.getX() + (bounds.getW() / 2);
+    float horizM = bounds.getY() + (bounds.getH() / 2);
+
+    Rect rect = entity.bounds;
+
+    // Object can completely fit within the top quadrants
+    bool topQuadrant =
+        (rect.getY() < horizM && rect.getY() + rect.getH() < horizM);
+    // Object can completely fit within the bottom quadrants
+    bool bottomQuadrant = (rect.getY() > horizM);
+
+    // Object can completely fit within the left quadrants
+    if (rect.getX() < vertM && rect.getX() + rect.getW() < vertM) {
+      if (topQuadrant) {
+        index = 1;
+      } else if (bottomQuadrant) {
+        index = 2;
+      }
+    }
+    // Object can completely fit within the right quadrants
+    else if (rect.getX() > vertM) {
+      if (topQuadrant) {
+        index = 0;
+      } else if (bottomQuadrant) {
+        index = 3;
+      }
     }
 
-    /*
-    * Determine which node the object belongs to. -1 means
-    * object cannot completely fit within a child node and is part
-    * of the parent node
-    */
-    int getIndex(const Rect &rect) {
-        int index = -1;
-        float vertM = bounds.getX() + (bounds.getW() / 2);
-        float horizM = bounds.getY() + (bounds.getH() / 2);
+    return index;
+  }
 
-        // Object can completely fit within the top quadrants
-        bool topQuadrant =
-            (rect.getY() < horizM && rect.getY() + rect.getH() < horizM);
-        // Object can completely fit within the bottom quadrants
-        bool bottomQuadrant = (rect.getY() > horizM);
+public:
+  int level;
+  std::vector<NCollisionEntity> members;
+  Rect bounds;
+  std::array<std::unique_ptr<NQuadtree>, 4> nodes;
 
-        // Object can completely fit within the left quadrants
-        if (rect.getX() < vertM && rect.getX() + rect.getW() < vertM) {
-            if (topQuadrant) {
-                index = 1;
-            } else if (bottomQuadrant) {
-                index = 2;
-            }
-        }
-        // Object can completely fit within the right quadrants
-        else if (rect.getX() > vertM) {
-            if (topQuadrant) {
-                index = 0;
-            } else if (bottomQuadrant) {
-                index = 3;
-            }
-        }
+  NQuadtree(int level, const Rect &bounds) : level(level), bounds(bounds) {}
 
-        return index;
+  // clear the quadtree
+  void clear() {
+    members.clear();
+
+    for (int i = 0; i < (int)nodes.size(); i++) {
+      if (nodes[i] != nullptr) {
+        nodes[i]->clear();
+        nodes[i] = nullptr;
+      }
+    }
+  }
+
+  // Insert an object into the Quadtree. Quadtree will split as needed.
+  void insert(const NCollisionEntity &entity) {
+    if (nodes[0] != nullptr) {
+      int index = this->getIndex(entity);
+
+      if (index > -1) {
+        nodes[index]->insert(entity);
+        return;
+      }
     }
 
-  public:
-    int level;
-    std::vector<Rect> objects;
-    Rect bounds;
-    std::array<std::unique_ptr<NQuadtree>, 4> nodes;
+    members.push_back(entity);
 
-    NQuadtree(int level, const Rect &bounds) : level(level), bounds(bounds) {}
+    if ((int)members.size() > MAX_OBJECTS && level < MAX_LEVELS) {
+      if (nodes[0] == nullptr) {
+        this->split();
+      }
 
-    // clear the quadtree
-    void clear() {
-        objects.clear();
-
-        for (int i = 0; i < (int)nodes.size(); i++) {
-            if (nodes[i] != nullptr) {
-                nodes[i]->clear();
-                nodes[i] = nullptr;
-            }
+      int i = 0;
+      while (i < (int)members.size()) {
+        int index = this->getIndex(members[i]);
+        if (index != -1) {
+          NCollisionEntity& e = members[i];
+          members.erase(members.begin() + i);
+          nodes[index]->insert(e);
+        } else {
+          i++;
         }
+      }
+    }
+  }
+
+  // Return all members that could collide with the given object
+  std::vector<NCollisionEntity>
+  retrieve(std::vector<NCollisionEntity> &retmembers,
+           const NCollisionEntity &entity) {
+
+    int index = this->getIndex(entity);
+
+    if (index > -1 && nodes[0] != nullptr) {
+      nodes[index]->retrieve(retmembers, entity);
     }
 
-    // Insert an object into the Quadtree. Quadtree will split as needed.
-    void insert(const Rect &rect) {
-        if (nodes[0] != nullptr) {
-            int index = this->getIndex(rect);
+    retmembers.reserve(retmembers.size() + members.size());
+    retmembers.insert(retmembers.end(), members.begin(), members.end());
 
-            if (index > -1) {
-                nodes[index]->insert(rect);
-                return;
-            }
-        }
-
-        objects.push_back(rect);
-
-        if ((int)objects.size() > MAX_OBJECTS && level < MAX_LEVELS) {
-            if (nodes[0] == nullptr) {
-                this->split();
-            }
-
-            int i = 0;
-            while (i < (int)objects.size()) {
-                int index = this->getIndex(objects[i]);
-                if (index != -1) {
-                    // objects.remove(i)
-                    Rect o = objects[i];
-                    objects.erase(
-                        std::remove(objects.begin(), objects.end(), o),
-                        objects.end());
-                    nodes[index]->insert(o);
-                } else {
-                    i++;
-                }
-            }
-        }
-    }
-
-    // Return all objects that could collide with the given object
-    std::vector<Rect> retrieve(std::vector<Rect> &retObjects,
-                               const Rect &rect) {
-        int index = this->getIndex(rect);
-
-        if (index > -1 && nodes[0] != nullptr) {
-            nodes[index]->retrieve(retObjects, rect);
-        }
-
-        retObjects.reserve(retObjects.size() + objects.size());
-        retObjects.insert(retObjects.end(), objects.begin(), objects.end());
-
-        return retObjects;
-    }
+    return retmembers;
+  }
 };

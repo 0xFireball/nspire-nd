@@ -60,7 +60,7 @@ template <class T> class NGroup : public NBasic {
         return obj;
     }
 
-    std::vector<std::shared_ptr<T>> get_alive() {
+    std::vector<std::shared_ptr<T>> get_alive() const {
         // TODO: Filter by alive, valid, etc.
         return members;
     }
