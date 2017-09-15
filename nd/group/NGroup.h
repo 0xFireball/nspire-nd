@@ -27,7 +27,7 @@ template <class T> class NGroup : public NBasic {
     int memberCount = 0;
     int maxSize = 0;
 
-    NGroup(int maxSize) : maxSize(maxSize) {}
+    NGroup(int maxSize = 0) : maxSize(maxSize) {}
 
     std::shared_ptr<T> add(std::shared_ptr<T> obj) {
         bool full = this->maxSize > 0 && (int)members.size() >= this->maxSize;

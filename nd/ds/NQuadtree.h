@@ -13,9 +13,10 @@
 struct NCollisionEntity {
   std::shared_ptr<NEntity> entity;
   Rect bounds;
+  int tag;
 
-  NCollisionEntity(std::shared_ptr<NEntity> entity, Rect bounds)
-      : entity(entity), bounds(bounds) {}
+  NCollisionEntity(std::shared_ptr<NEntity> entity, Rect bounds, int tag = 0)
+      : entity(entity), bounds(bounds), tag(tag) {}
 };
 
 class NQuadtree {

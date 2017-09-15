@@ -23,3 +23,5 @@ public:
   Vec2 getCenter();
   virtual Rect getBounds() const;
 };
+
+typedef std::shared_ptr<NEntity> NEntityRef;
