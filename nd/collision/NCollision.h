@@ -98,62 +98,35 @@ public:
         (std::abs((e1->y + e1->height / 2) - (e2->y + e2->height / 2)));
 
     if (overlapX < overlapY) {
-      // float mx;
+      float mx;
       if (e1->x > e2->x) {
-        e1->x += overlapX / 2;
-        e2->x -= overlapX / 2;
+        mx = -overlapX;
       } else if (e1->x < e2->x) {
-        e1->x -= overlapX / 2;
-        e2->x += overlapX / 2;
+        mx = overlapX;
+      }
+      if (!e1->immovable && !e2->immovable) {
+        e1->x -= mx / 2;
+        e2->x += mx / 2;
+      } else if (e1->immovable) {
+        e2->x += mx;
+      } else if (e2->immovable) {
+        e1->x += mx;
       }
     } else if (overlapY < overlapX) {
-      // float my;
+      float my;
       if (e1->y > e2->y) {
-        e1->y += overlapY / 2;
-        e2->y -= overlapY / 2;
+        my = -overlapY;
       } else if (e1->y < e2->y) {
-        e1->y -= overlapY / 2;
-        e2->y += overlapY / 2;
+        my = overlapY;
+      }
+      if (!e1->immovable && !e2->immovable) {
+        e1->y -= my / 2;
+        e2->y += my / 2;
+      } else if (e1->immovable) {
+        e2->y += my;
+      } else if (e2->immovable) {
+        e1->y += my;
       }
     }
-
-    // float overlapX = 0;
-    // if (e1->x < e2->x) {
-    //   overlapX = e1->x + e1->width - e2->x;
-    //   if (overlapX < 0)
-    //     overlapX = 0;
-    // } else if (e1->x > e2->x) {
-    //   overlapX = e2->x + e2->width - e1->x;
-    //   if (overlapX > 0)
-    //     overlapX = 0;
-    // }
-    // float overlapY = 0;
-    // if (e1->y < e2->y) {
-    //   overlapY = e1->y + e1->height - e2->y;
-    //   if (overlapY < 0)
-    //     overlapY = 0;
-    // } else if (e1->y > e2->y) {
-    //   overlapY = e2->y + e2->height - e1->y;
-    //   if (overlapY > 0)
-    //     overlapY = 0;
-    // }
-
-    // // separate objects
-    // if (std::abs(overlapX) > 0 && std::abs(overlapY) > 0) {
-    //   if (overlapX > 0) {
-    //     e1->x -= overlapX / 2;
-    //     e2->x += overlapX / 2;
-    //   } else if (overlapX < 0) {
-    //     e1->x += overlapX / 2;
-    //     e2->x -= overlapX / 2;
-    //   }
-    //   if (overlapY > 0) {
-    //     e1->y -= overlapY / 2;
-    //     e2->y += overlapY / 2;
-    //   } else if (overlapY < 0) {
-    //     e1->y += overlapY / 2;
-    //     e2->y -= overlapY / 2;
-    //   }
-    // }
   }
 };
