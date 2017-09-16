@@ -46,7 +46,6 @@ public:
       // lerp the position
       Vec2 targetScroll = _followTarget->getCenter() - (bounds / 2);
       scroll += (targetScroll - scroll) * lerp;
-      // std::cout << scroll.getX() << " " << scroll.getY() << std::endl;
     } else if (followStyle == NCameraFollowStyle::DEADZONE) {
       // TODO
     }
