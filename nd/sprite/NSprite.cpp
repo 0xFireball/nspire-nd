@@ -42,8 +42,8 @@ void NSprite::makeGraphic(int width, int height, NColor col) {
     renderer.end();
     this->_horizFrames = 1;
     this->_vertFrames = 1;
-    this->_frameWidth = width;
-    this->_frameHeight = height;
+    this->_frameWidth = this->width = width;
+    this->_frameHeight = this->height = height;
     this->_renderBuf = NG2::create_surface(_frameWidth, _frameHeight);
 }
 

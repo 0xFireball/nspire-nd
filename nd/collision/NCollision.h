@@ -63,7 +63,7 @@ public:
       for (int j = 0; j < (int)retColl.size(); j++) {
         NCollisionEntity obj = retColl[j];
         // check AABB collision, and ensure they're from different groups
-        if (this->overlap(nt.entity, obj.entity) && nt.tag != obj.tag) {
+        if (nt.tag != obj.tag && this->overlap(nt.entity, obj.entity)) {
           anyCollisions = true;
           // call notifyCallback
           if (notifyCallback) {
