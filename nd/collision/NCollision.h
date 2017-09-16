@@ -89,37 +89,71 @@ public:
   static void separate(NEntityRef e1, NEntityRef e2) {
     // compute overlaps
 
-    float overlapX = e1->x + e1->width - e2->x;
-    if (e1->x < e2->x) {
-      if (overlapX < 0)
-        overlapX = 0;
-    } else if (e1->x > e2->x) {
-      if (overlapX > 0)
-        overlapX = 0;
-    }
-    float overlapY = e1->y + e1->height - e2->y;
-    if (e1->y < e2->y) {
-      if (overlapY < 0)
-        overlapY = 0;
-    } else if (e1->y > e2->y) {
-      if (overlapY > 0)
-        overlapY = 0;
+    float overlapX =
+        (e1->width / 2 + e2->width / 2) -
+        (std::abs((e1->x + e1->width / 2) - (e2->x + e2->width / 2)));
+
+    float overlapY =
+        (e1->height / 2 + e2->height / 2) -
+        (std::abs((e1->y + e1->height / 2) - (e2->y + e2->height / 2)));
+
+    if (overlapX < overlapY) {
+      // float mx;
+      if (e1->x > e2->x) {
+        e1->x += overlapX / 2;
+        e2->x -= overlapX / 2;
+      } else if (e1->x < e2->x) {
+        e1->x -= overlapX / 2;
+        e2->x += overlapX / 2;
+      }
+    } else if (overlapY < overlapX) {
+      // float my;
+      if (e1->y > e2->y) {
+        e1->y += overlapY / 2;
+        e2->y -= overlapY / 2;
+      } else if (e1->y < e2->y) {
+        e1->y -= overlapY / 2;
+        e2->y += overlapY / 2;
+      }
     }
 
-    // separate objects
-    if (overlapX > 0) {
-      e1->x -= overlapX / 2;
-      e2->x += overlapX / 2;
-    } else if (overlapX < 0) {
-      e1->x += overlapX / 2;
-      e2->x -= overlapX / 2;
-    }
-    if (overlapY > 0) {
-      e1->y -= overlapY / 2;
-      e2->y += overlapY / 2;
-    } else if (overlapY < 0) {
-      e1->y += overlapY / 2;
-      e2->y -= overlapY / 2;
-    }
+    // float overlapX = 0;
+    // if (e1->x < e2->x) {
+    //   overlapX = e1->x + e1->width - e2->x;
+    //   if (overlapX < 0)
+    //     overlapX = 0;
+    // } else if (e1->x > e2->x) {
+    //   overlapX = e2->x + e2->width - e1->x;
+    //   if (overlapX > 0)
+    //     overlapX = 0;
+    // }
+    // float overlapY = 0;
+    // if (e1->y < e2->y) {
+    //   overlapY = e1->y + e1->height - e2->y;
+    //   if (overlapY < 0)
+    //     overlapY = 0;
+    // } else if (e1->y > e2->y) {
+    //   overlapY = e2->y + e2->height - e1->y;
+    //   if (overlapY > 0)
+    //     overlapY = 0;
+    // }
+
+    // // separate objects
+    // if (std::abs(overlapX) > 0 && std::abs(overlapY) > 0) {
+    //   if (overlapX > 0) {
+    //     e1->x -= overlapX / 2;
+    //     e2->x += overlapX / 2;
+    //   } else if (overlapX < 0) {
+    //     e1->x += overlapX / 2;
+    //     e2->x -= overlapX / 2;
+    //   }
+    //   if (overlapY > 0) {
+    //     e1->y -= overlapY / 2;
+    //     e2->y += overlapY / 2;
+    //   } else if (overlapY < 0) {
+    //     e1->y += overlapY / 2;
+    //     e2->y -= overlapY / 2;
+    //   }
+    // }
   }
 };
