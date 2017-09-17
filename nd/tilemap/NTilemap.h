@@ -4,7 +4,7 @@
 #include "../group/NGroup.h"
 #include "NTile.h"
 
-class NTilemap : public NGroup<NTile> {
+class NTilemap : public NEntityGroup {
 public:
   int mapWidth;
   int mapHeight;
@@ -13,7 +13,7 @@ public:
 
   NTilemap(Vec2 offset, int tiles[], int mapWidth, int mapHeight,
            std::shared_ptr<NTileset> tileset)
-      : NGroup<NTile>(0), mapWidth(mapWidth), mapHeight(mapHeight),
+      : NEntityGroup(0), mapWidth(mapWidth), mapHeight(mapHeight),
         tileset(tileset) {
     // create NTile array
     this->tiles = new std::shared_ptr<NTile>[mapWidth * mapHeight];
@@ -37,6 +37,6 @@ public:
   virtual void destroy() override {
     delete[] tiles;
     tileset->destroy();
-    NGroup<NTile>::destroy();
+    NEntityGroup::destroy();
   }
 };

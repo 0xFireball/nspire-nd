@@ -4,6 +4,7 @@
 #include "../deps.h"
 
 #include "../entity/NBasic.h"
+#include "../entity/NEntity.h"
 
 template <class T> class NGroup : public NBasic {
   private:
@@ -102,3 +103,6 @@ template <class T> class NGroup : public NBasic {
 
     virtual ~NGroup() {}
 };
+
+typedef NGroup<NEntity> NEntityGroup;
+typedef std::shared_ptr<NEntityGroup> NEntityGroupRef;

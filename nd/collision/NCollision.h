@@ -2,10 +2,9 @@
 #pragma once
 
 #include "../ds/NQuadtree.h"
+#include "../group/NGroup.h"
 
 class NCollision {
-
-  typedef std::shared_ptr<NGroup<NEntity>> EntityGroupRef;
 
 private:
   Rect _bounds;
@@ -19,15 +18,15 @@ public:
   }
 
   bool overlap(
-      NEntityRef nt, EntityGroupRef g2,
+      NEntityRef nt, NEntityGroupRef g2,
       std::function<void(NEntityRef, NEntityRef)> notifyCallback = nullptr) {
-    auto g1 = std::make_shared<NGroup<NEntity>>();
+    auto g1 = std::make_shared<NEntityGroup>();
     g1->add(nt);
     return overlap(g1, g2, notifyCallback);
   }
 
   bool overlap(
-      EntityGroupRef g1, EntityGroupRef g2,
+      NEntityGroupRef g1, NEntityGroupRef g2,
       std::function<void(NEntityRef, NEntityRef)> notifyCallback = nullptr) {
 
     this->_quad.clear();
@@ -76,13 +75,13 @@ public:
     return anyCollisions;
   }
 
-  bool collide(NEntityRef nt, EntityGroupRef g2) {
-    auto g1 = std::make_shared<NGroup<NEntity>>();
+  bool collide(NEntityRef nt, NEntityGroupRef g2) {
+    auto g1 = std::make_shared<NEntityGroup>();
     g1->add(nt);
     return collide(g1, g2);
   }
 
-  bool collide(EntityGroupRef g1, EntityGroupRef g2) {
+  bool collide(NEntityGroupRef g1, NEntityGroupRef g2) {
     return this->overlap(g1, g2, NCollision::separate);
   }
 
