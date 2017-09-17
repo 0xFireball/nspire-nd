@@ -7,7 +7,7 @@
 #include "../../util/rng.h"
 #include "NParticle.h"
 
-class NParticleEmitter : public NGroup<NParticle> {
+class NParticleEmitter : public NEntityGroup {
 public:
     NParticleEmitter(int maxSize) : NGroup<NParticle>(maxSize) {}
 
