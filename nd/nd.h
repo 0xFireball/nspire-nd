@@ -22,6 +22,8 @@
 
 #include "collision/NCollision.h"
 
+#include "tilemap/NTilemap.h"
+
 #ifndef DISABLE_TWEENS
 #include "tween/NTweenManager.h"
 #endif
