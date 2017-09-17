@@ -9,7 +9,7 @@
 
 class NParticleEmitter : public NEntityGroup {
 public:
-    NParticleEmitter(int maxSize) : NGroup<NParticle>(maxSize) {}
+    NParticleEmitter(int maxSize) : NEntityGroup(maxSize) {}
 
     void emitSquare(int x, int y, int size, Vec2 velocity, NColor col, float life) {
         x -= size / 2;
